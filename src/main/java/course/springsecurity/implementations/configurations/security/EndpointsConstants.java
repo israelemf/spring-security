@@ -10,7 +10,7 @@ public class EndpointsConstants {
             "/account",
             "/balance",
             "/loans",
-            "cards"
+            "/cards"
     };
 
     public static String[] getEndpointsPostNotRequiringAuthentication() {
