@@ -1,4 +1,4 @@
-package course.springsecurity.repositories;
+package course.springsecurity.implementations.repositories;
 
 import course.springsecurity.implementations.entities.Customer;
 import org.springframework.data.repository.CrudRepository;
