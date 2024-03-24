@@ -1,4 +1,4 @@
-package course.springsecurity.implementations.controllers;
+package course.springsecurity.implementations.controllers.dashboard;
 
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
