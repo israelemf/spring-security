@@ -1,0 +1,10 @@
+spring:
+  datasource:
+    url: jdbc:mysql://libertybank.cbko0egaoy55.sa-east-1.rds.amazonaws.com/libertybank
+    username: admin
+    password: iemf12345
+  jpa:
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
