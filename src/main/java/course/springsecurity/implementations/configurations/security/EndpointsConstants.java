@@ -2,6 +2,10 @@ package course.springsecurity.implementations.configurations.security;
 
 public class EndpointsConstants {
     public static final String[] ENDPOINTS_POST_NOT_REQUIRING_AUTHENTICATION = {
+            "/customer"
+    };
+
+    public static final String[] ENDPOINTS_NOT_REQUIRING_AUTHENTICATION = {
             "/notices",
             "/contact"
     };
@@ -15,6 +19,9 @@ public class EndpointsConstants {
 
     public static String[] getEndpointsPostNotRequiringAuthentication() {
         return ENDPOINTS_POST_NOT_REQUIRING_AUTHENTICATION;
+    }
+    public static String[] getEndpointsNotRequiringAuthentication() {
+        return ENDPOINTS_NOT_REQUIRING_AUTHENTICATION;
     }
 
     public static String[] getEndpointsWithRequiringAuthentication() {
