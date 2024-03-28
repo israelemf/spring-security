@@ -1,30 +1,6 @@
-create database libertybank;
-
-use libertybank;
-
-CREATE TABLE `users` (
-`id` INT NOT NULL AUTO_INCREMENT,
-`username` VARCHAR(45) NOT NULL,
-`password` VARCHAR(45) NOT NULL,
-`enabled` INT NOT NULL,
-PRIMARY KEY (`id`));
-
-CREATE TABLE `authorities` (
-  `id` int NOT NULL AUTO_INCREMENT,
-  `username` varchar(45) NOT NULL,
-  `authority` varchar(45) NOT NULL,
-  PRIMARY KEY (`id`));
-
-INSERT IGNORE INTO `users` VALUES (NULL, 'happy', '12345', '1');
-INSERT IGNORE INTO `authorities` VALUES (NULL, 'happy', 'write');
-
-CREATE TABLE `customer` (
-  `id` int NOT NULL AUTO_INCREMENT,
-  `email` varchar(45) NOT NULL,
-  `password` varchar(200) NOT NULL,
-  `role` varchar(45) NOT NULL,
-  PRIMARY KEY (`id`)
+CREATE TABLE customers (
+  id SERIAL PRIMARY KEY,
+  email VARCHAR(45) NOT NULL,
+  password VARCHAR(200) NOT NULL,
+  role VARCHAR(45) NOT NULL
 );
-
-INSERT INTO `customer` (`email`, `password`, `role`)
- VALUES ('israelemf@outlook.com', '12345', 'admin');

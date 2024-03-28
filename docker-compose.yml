@@ -1,0 +1,12 @@
+version: '3.8'
+name: principal
+services:
+  pgadmin:
+    container_name: pgadmin_container
+    image: dpage/pgadmin4
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@admin.com
+      PGADMIN_DEFAULT_PASSWORD: admin
+      PGADMIN_LISTEN_PORT: 8002
+    ports:
+      - "8002:8002"
