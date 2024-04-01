@@ -32,10 +32,11 @@ public class SecurityConfiguration {
                 .build();
     }
 
+    /*
     @Bean
     public JdbcUserDetailsManager userDetailsService(DataSource dataSource) {
         return new JdbcUserDetailsManager(dataSource);
-    }
+    }*/
 
     /*@Bean
     public InMemoryUserDetailsManager userDetailsService() {

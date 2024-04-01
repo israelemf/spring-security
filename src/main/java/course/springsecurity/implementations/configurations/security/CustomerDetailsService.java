@@ -7,10 +7,12 @@ import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
 
+@Service
 public class CustomerDetailsService implements UserDetailsService {
     private final CustomerRepository customerRepository;
 
@@ -21,7 +23,7 @@ public class CustomerDetailsService implements UserDetailsService {
     // Method used by Spring Security to retrieve user details based on the username provided
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-        var customer = customerRepository.findByEmail(email)
+        var customer = customerRepository.findCustomerByEmail(email)
                 .orElseThrow(() -> new UsernameNotFoundException("Email não encontrado!"));
 
         List<GrantedAuthority> authorities = new ArrayList<>();
