@@ -32,29 +32,6 @@ public class SecurityConfiguration {
                 .build();
     }
 
-    /*
-    @Bean
-    public JdbcUserDetailsManager userDetailsService(DataSource dataSource) {
-        return new JdbcUserDetailsManager(dataSource);
-    }*/
-
-    /*@Bean
-    public InMemoryUserDetailsManager userDetailsService() {
-        UserDetails admin = User.withDefaultPasswordEncoder()
-                .username("admin")
-                .password("root")
-                .authorities("total")
-                .build();
-
-        UserDetails user = User.withDefaultPasswordEncoder()
-                .username("user")
-                .password("user")
-                .authorities("basic")
-                .build();
-
-        return new InMemoryUserDetailsManager(admin, user);
-    }*/
-
     @Bean
     public PasswordEncoder passwordEncoder() {
         return NoOpPasswordEncoder.getInstance();
