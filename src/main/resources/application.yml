@@ -1,6 +1,6 @@
 spring:
   datasource:
-    url: jdbc:postgresql://liberty-bank.cbko0egaoy55.sa-east-1.rds.amazonaws.com/libertybank
+    url: jdbc:postgresql://http://localhost:5432/libertybank
     driverClassName: org.postgresql.Driver
     username: postgres
     password: iemf12345
