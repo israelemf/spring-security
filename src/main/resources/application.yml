@@ -1,9 +1,9 @@
 spring:
   datasource:
-    url: jdbc:postgresql://http://localhost:5432/libertybank
+    url: jdbc:postgresql://localhost:5432/libertybank
     driverClassName: org.postgresql.Driver
-    username: postgres
-    password: iemf12345
+    username: admin
+    password: admin
   jpa:
     show-sql: true
     database-platform: org.hibernate.dialect.PostgreSQLDialect
