@@ -1,0 +1,10 @@
+package course.springsecurity.implementations.repositories;
+
+import course.springsecurity.implementations.entities.Contact;
+import org.springframework.data.repository.CrudRepository;
+import org.springframework.stereotype.Repository;
+
+@Repository
+public interface ContactRepository extends CrudRepository<Contact, Integer> {
+
+}
