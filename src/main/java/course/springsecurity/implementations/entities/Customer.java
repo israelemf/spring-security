@@ -11,7 +11,7 @@ public class Customer {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "customer_id")
-    private int id;
+    private int customerId;
     private String name;
     private String phone;
     private String email;
@@ -22,11 +22,11 @@ public class Customer {
     private LocalDateTime createdAt;
 
     public int getId() {
-        return id;
+        return customerId;
     }
 
     public void setId(int id) {
-        this.id = id;
+        this.customerId = id;
     }
 
     public String getName() {
