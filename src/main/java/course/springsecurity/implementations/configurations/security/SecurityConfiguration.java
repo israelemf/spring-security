@@ -27,6 +27,7 @@ public class SecurityConfiguration {
                 .authorizeHttpRequests(authorize -> authorize
                         .requestMatchers(EndpointsConstants.getEndpointsWithRequiringAuthentication()).authenticated()
                         .requestMatchers(EndpointsConstants.getEndpointsNotRequiringAuthentication()).permitAll()
+                        .requestMatchers(HttpMethod.GET, EndpointsConstants.getEndpointsGetRequiringAuthentication()).authenticated()
                         .requestMatchers(HttpMethod.POST, EndpointsConstants.getEndpointsPostNotRequiringAuthentication()).permitAll())
                 .formLogin(Customizer.withDefaults())
                 .httpBasic(Customizer.withDefaults())

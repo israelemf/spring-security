@@ -5,6 +5,10 @@ public class EndpointsConstants {
             "/customer"
     };
 
+    public static final String[] ENDPOINTS_GET_REQUIRING_AUTHENTICATION = {
+            "/customer"
+    };
+
     public static final String[] ENDPOINTS_NOT_REQUIRING_AUTHENTICATION = {
             "/notices",
             "/contact"
@@ -17,6 +21,9 @@ public class EndpointsConstants {
             "/cards"
     };
 
+    public static String[] getEndpointsGetRequiringAuthentication() {
+        return ENDPOINTS_GET_REQUIRING_AUTHENTICATION;
+    }
     public static String[] getEndpointsPostNotRequiringAuthentication() {
         return ENDPOINTS_POST_NOT_REQUIRING_AUTHENTICATION;
     }
