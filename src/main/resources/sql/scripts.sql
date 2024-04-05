@@ -8,7 +8,6 @@ CREATE TABLE customers (
     created_at date
 );
 
-
 CREATE TABLE accounts (
     account_number int PRIMARY KEY,
     customer_id int NOT NULL,
@@ -19,10 +18,6 @@ CREATE TABLE accounts (
     CONSTRAINT fk_customer_id FOREIGN KEY (customer_id) REFERENCES customers(customer_id)
 );
 CREATE INDEX idx_customer_id_accounts ON accounts(customer_id);
-
-INSERT INTO accounts (account_number, customer_id, account_type, agency_address, created_at)
-VALUES (123456789, 3, 'Conta Poupança', 'Rua das Flores, 123, Cidade A, Estado X', CURRENT_DATE);
-
 
 CREATE TABLE account_transactions (
     transaction_id varchar(200) PRIMARY KEY,
@@ -41,16 +36,6 @@ CREATE TABLE account_transactions (
 CREATE INDEX idx_customer_id_acct_trans ON account_transactions(customer_id);
 CREATE INDEX idx_account_number_acct_trans ON account_transactions(account_number);
 
-INSERT INTO account_transactions (transaction_id, account_number, customer_id, transaction_date, transaction_description, transaction_type, transaction_amount, closing_balance, created_at)
-VALUES ('123456789', 123456789, 3, '2024-04-01', 'Depósito Inicial', 'Depósito', 1000.00, 1000.00, CURRENT_DATE);
-
-INSERT INTO account_transactions (transaction_id, account_number, customer_id, transaction_date, transaction_description, transaction_type, transaction_amount, closing_balance, created_at)
-VALUES ('987654321', 123456789, 3, '2024-04-02', 'Compra Online', 'Débito', -50.00, 950.00, CURRENT_DATE);
-
-INSERT INTO account_transactions (transaction_id, account_number, customer_id, transaction_date, transaction_description, transaction_type, transaction_amount, closing_balance, created_at)
-VALUES ('456123789', 123456789, 3, '2024-04-03', 'Transferência Recebida', 'Crédito', 200.00, 1150.00, CURRENT_DATE);
-
-
 CREATE TABLE loans (
     loan_number int PRIMARY KEY,
 	customer_id int NOT NULL,
@@ -64,10 +49,6 @@ CREATE TABLE loans (
     CONSTRAINT fk_customer_id FOREIGN KEY (customer_id) REFERENCES customers(customer_id)
 );
 CREATE INDEX idx_customer_id_loans ON loans(customer_id);
-
-INSERT INTO loans (loan_number, customer_id, start_date, loan_type, total_loan_amount, amount_paid, outstanding_amount, created_at)
-VALUES (1003, 3, '2024-03-10', 'Empréstimo para Veículo', 10000.00, 2000.00, 8000.00, CURRENT_DATE);
-
 
 CREATE TABLE cards (
     card_id int PRIMARY KEY,
@@ -83,12 +64,6 @@ CREATE TABLE cards (
 );
 CREATE INDEX idx_customer_id_cards ON cards(customer_id);
 
-INSERT INTO cards (card_id, card_number, customer_id, card_type, total_limit, used_limit, available_limit, created_at)
-VALUES
-(1, '1234 5678 9012 3456', 3, 'Platinum', 10000.00, 5000.00, 5000.00, CURRENT_DATE),
-(2, '9876 5432 1098 7654', 3, 'Gold', 5000.00, 2000.00, 3000.00, CURRENT_DATE);
-
-
 CREATE TABLE notices (
     notice_id int PRIMARY KEY,
 	notice_summary varchar(200) NOT NULL,
@@ -98,6 +73,34 @@ CREATE TABLE notices (
 	update_date date,
 	created_at date
 );
+
+CREATE TABLE contacts (
+    contact_id varchar(50) PRIMARY KEY,
+	contact_name varchar(100) NOT NULL,
+	contact_email varchar(100) NOT NULL,
+	subject varchar(500) NOT NULL,
+	message varchar(2000) NOT NULL,
+	created_at date
+);
+
+INSERT INTO customers (customer_id, name, phone, email, password, role, created_at)
+VALUES (3, 'Israel', '41999999999', 'israel@email.com', '$2a$12$M4P/4sL2aERkEMiuRkW/leyBcHBwCvHLbp5dA5SfVfyby0ccb1TOq', 'admin', CURRENT_DATE);
+
+INSERT INTO accounts (account_number, customer_id, account_type, agency_address, created_at)
+VALUES (123456789, 3, 'Conta Poupança', 'Rua das Flores, 123, Cidade A, Estado X', CURRENT_DATE);
+
+INSERT INTO account_transactions (transaction_id, account_number, customer_id, transaction_date, transaction_description, transaction_type, transaction_amount, closing_balance, created_at)
+VALUES ('123456789', 123456789, 3, '2024-04-01', 'Depósito Inicial', 'Depósito', 1000.00, 1000.00, CURRENT_DATE);
+VALUES ('987654321', 123456789, 3, '2024-04-02', 'Compra Online', 'Débito', -50.00, 950.00, CURRENT_DATE);
+VALUES ('456123789', 123456789, 3, '2024-04-03', 'Transferência Recebida', 'Crédito', 200.00, 1150.00, CURRENT_DATE);
+
+INSERT INTO loans (loan_number, customer_id, start_date, loan_type, total_loan_amount, amount_paid, outstanding_amount, created_at)
+VALUES (1003, 3, '2024-03-10', 'Empréstimo para Veículo', 10000.00, 2000.00, 8000.00, CURRENT_DATE);
+
+INSERT INTO cards (card_id, card_number, customer_id, card_type, total_limit, used_limit, available_limit, created_at)
+VALUES
+(1, '1234 5678 9012 3456', 3, 'Platinum', 10000.00, 5000.00, 5000.00, CURRENT_DATE),
+(2, '9876 5432 1098 7654', 3, 'Gold', 5000.00, 2000.00, 3000.00, CURRENT_DATE);
 
 INSERT INTO notices (notice_id, notice_summary, notice_details, notice_begin_date, notice_end_date, update_date, created_at)
 VALUES
@@ -111,16 +114,5 @@ VALUES
 (8, 'Atualização do Sistema', 'Estamos atualizando nosso sistema para melhorar o desempenho.', '2024-05-02', NULL, CURRENT_DATE, CURRENT_DATE),
 (9, 'Reunião de Equipe', 'Lembrete: Reunião de equipe amanhã às 9h.', '2024-05-05', NULL, CURRENT_DATE, CURRENT_DATE),
 (10, 'Encerramento de Conta', 'Por favor, note que sua conta será encerrada em breve.', '2024-05-10', NULL, CURRENT_DATE, CURRENT_DATE);
-
-
-CREATE TABLE contacts (
-    contact_id int PRIMARY KEY,
-	contact_name varchar(100) NOT NULL,
-	contact_email varchar(100) NOT NULL,
-	subject varchar(500) NOT NULL,
-	message varchar(2000) NOT NULL,
-	created_at date
-);
-
 
 

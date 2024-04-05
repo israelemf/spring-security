@@ -9,9 +9,8 @@ import java.time.LocalDateTime;
 @Table(name = "contacts")
 public class Contact {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "contact_id")
-    private int contactId;
+    private String contactId;
     @Column(name = "contact_name")
     private String contactName;
     @Column(name = "contact_email")
@@ -22,11 +21,11 @@ public class Contact {
     @Column(name = "created_at")
     private LocalDateTime createdAt;
 
-    public int getContactId() {
+    public String getContactId() {
         return contactId;
     }
 
-    public void setContactId(int contactId) {
+    public void setContactId(String contactId) {
         this.contactId = contactId;
     }
 
