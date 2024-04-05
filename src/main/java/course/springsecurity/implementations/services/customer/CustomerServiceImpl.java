@@ -4,8 +4,10 @@ import course.springsecurity.implementations.dtos.customer.CreateCustomerDto;
 import course.springsecurity.implementations.entities.Customer;
 import course.springsecurity.implementations.repositories.CustomerRepository;
 import jakarta.persistence.EntityExistsException;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -19,6 +21,12 @@ public class CustomerServiceImpl implements CustomerService{
     public CustomerServiceImpl(CustomerRepository customerRepository, PasswordEncoder passwordEncoder) {
         this.customerRepository = customerRepository;
         this.passwordEncoder = passwordEncoder;
+    }
+
+    @Override
+    public Customer getCustomerDetails(String email) {
+        return customerRepository.findCustomerByEmail(email)
+                .orElseThrow(() -> new EntityNotFoundException(("Email não encontrado!")));
     }
 
     @Override
