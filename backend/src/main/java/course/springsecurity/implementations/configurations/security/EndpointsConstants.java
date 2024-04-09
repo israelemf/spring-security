@@ -13,7 +13,7 @@ public class EndpointsConstants {
     };
     public static final String[] ENDPOINTS_WITH_REQUIRING_AUTHENTICATION = {
             "/account",
-            "/balance",
+            "/transactions",
             "/loans",
             "/cards"
     };
