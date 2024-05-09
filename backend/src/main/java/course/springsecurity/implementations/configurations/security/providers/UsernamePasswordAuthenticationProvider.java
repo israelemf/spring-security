@@ -1,5 +1,6 @@
 package course.springsecurity.implementations.configurations.security.providers;
 
+import course.springsecurity.implementations.entities.Authority;
 import course.springsecurity.implementations.entities.Customer;
 import course.springsecurity.implementations.repositories.CustomerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +16,7 @@ import org.springframework.stereotype.Component;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 @Component
 public class UsernamePasswordAuthenticationProvider implements AuthenticationProvider {
@@ -38,9 +40,7 @@ public class UsernamePasswordAuthenticationProvider implements AuthenticationPro
         }
 
         if (passwordEncoder.matches(passwordProvided, customer.get().getPassword())) {
-            List<GrantedAuthority> authorities = new ArrayList<>();
-            authorities.add(new SimpleGrantedAuthority(customer.get().getRole()));
-            return new UsernamePasswordAuthenticationToken(usernameProvided, passwordProvided, authorities);
+            return new UsernamePasswordAuthenticationToken(usernameProvided, passwordProvided, getGrantedAuthorities(customer.get().getAuthorities()));
         } else {
             throw new BadCredentialsException("Senha inválida!");
         }
@@ -49,5 +49,13 @@ public class UsernamePasswordAuthenticationProvider implements AuthenticationPro
     @Override
     public boolean supports(Class<?> authentication) {
         return (UsernamePasswordAuthenticationToken.class.isAssignableFrom(authentication));
+    }
+
+    private List<GrantedAuthority> getGrantedAuthorities(Set<Authority> authorities) {
+        List<GrantedAuthority> grantedAuthorities = new ArrayList<>();
+        authorities
+                .forEach(authority -> grantedAuthorities.add(new SimpleGrantedAuthority(authority.getRole())));
+
+        return grantedAuthorities;
     }
 }

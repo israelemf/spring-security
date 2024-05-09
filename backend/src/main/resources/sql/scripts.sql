@@ -83,6 +83,16 @@ CREATE TABLE contacts (
 	created_at date
 );
 
+CREATE TABLE authorities (
+    authority_id int PRIMARY KEY,
+    customer_id int NOT NULL,
+    role varchar(100) NOT NULL,
+
+    CONSTRAINT fk_customer_id FOREIGN KEY (customer_id) REFERENCES customers(customer_id)
+);
+CREATE INDEX idx_customer_id_authorities ON authorities(customer_id);
+
+
 INSERT INTO customers (customer_id, name, phone, email, password, role, created_at)
 VALUES (3, 'Israel', '41999999999', 'israel@email.com', '$2a$12$M4P/4sL2aERkEMiuRkW/leyBcHBwCvHLbp5dA5SfVfyby0ccb1TOq', 'admin', CURRENT_DATE);
 
@@ -115,4 +125,8 @@ VALUES
 (9, 'Reunião de Equipe', 'Lembrete: Reunião de equipe amanhã às 9h.', '2024-05-05', NULL, CURRENT_DATE, CURRENT_DATE),
 (10, 'Encerramento de Conta', 'Por favor, note que sua conta será encerrada em breve.', '2024-05-10', NULL, CURRENT_DATE, CURRENT_DATE);
 
+INSERT INTO authorities (authority_id, customer_id, role)
+VALUES (1, 3, 'VIEWACCOUNT');
 
+INSERT INTO authorities (authority_id, customer_id, role)
+VALUES (2, 3, 'VIEWCARDS');

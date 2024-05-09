@@ -1,9 +1,11 @@
 package course.springsecurity.implementations.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import org.hibernate.annotations.CreationTimestamp;
 
 import java.time.LocalDateTime;
+import java.util.Set;
 
 @Entity
 @Table(name = "customers")
@@ -17,15 +19,18 @@ public class Customer {
     private String email;
     private String password;
     private String role;
+    @JsonIgnore
+    @OneToMany(mappedBy = "customer", fetch = FetchType.EAGER)
+    private Set<Authority> authorities;
     @CreationTimestamp
     @Column(name = "created_at")
     private LocalDateTime createdAt;
 
-    public int getId() {
+    public int getCustomerId() {
         return customerId;
     }
 
-    public void setId(int id) {
+    public void setCustomerId(int id) {
         this.customerId = id;
     }
 
@@ -67,6 +72,13 @@ public class Customer {
 
     public void setRole(String role) {
         this.role = role;
+    }
+
+    public Set<Authority> getAuthorities() {
+        return authorities;
+    }
+    public void setAuthorities(Set<Authority> authorities) {
+        this.authorities = authorities;
     }
 
     public LocalDateTime getCreatedAt() {
