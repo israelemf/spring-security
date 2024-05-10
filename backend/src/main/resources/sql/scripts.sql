@@ -126,7 +126,7 @@ VALUES
 (10, 'Encerramento de Conta', 'Por favor, note que sua conta será encerrada em breve.', '2024-05-10', NULL, CURRENT_DATE, CURRENT_DATE);
 
 INSERT INTO authorities (authority_id, customer_id, role)
-VALUES (1, 3, 'VIEWACCOUNT');
+VALUES (1, 3, 'ROLE_ADMIN');
 
 INSERT INTO authorities (authority_id, customer_id, role)
-VALUES (2, 3, 'VIEWCARDS');
+VALUES (2, 3, 'ROLE_USER');

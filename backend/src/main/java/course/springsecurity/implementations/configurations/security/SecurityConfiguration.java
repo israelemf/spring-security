@@ -1,13 +1,12 @@
 package course.springsecurity.implementations.configurations.security;
 
 import course.springsecurity.implementations.configurations.security.filters.CsrfCookieFilter;
-import jakarta.servlet.http.HttpServletRequest;
+import course.springsecurity.implementations.configurations.security.filters.RequestValidationFilter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -18,8 +17,6 @@ import org.springframework.security.web.csrf.CsrfTokenRequestAttributeHandler;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
-
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
@@ -40,6 +37,7 @@ public class SecurityConfiguration {
                         .ignoringRequestMatchers(EndpointsConstants.getEndpointsRequestNotRequiringAuthentication())
                         .csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse()))
                 .addFilterAfter(new CsrfCookieFilter(), BasicAuthenticationFilter.class)
+                .addFilterBefore(new RequestValidationFilter(), BasicAuthenticationFilter.class)
                 .authorizeHttpRequests(authorize -> authorize
                         .requestMatchers(EndpointsConstants.getEndpointsWithRequiringAuthentication()).authenticated()
                         .requestMatchers(EndpointsConstants.getEndpointsGetNotRequiringAuthentication()).permitAll()
