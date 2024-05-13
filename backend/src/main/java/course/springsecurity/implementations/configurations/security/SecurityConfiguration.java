@@ -27,10 +27,8 @@ public class SecurityConfiguration {
     SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
         // Below is custom security configuration
         return httpSecurity
-                .securityContext(securityContext -> securityContext
-                        .requireExplicitSave(false))
                 .sessionManagement(sessionManagement -> sessionManagement
-                        .sessionCreationPolicy(SessionCreationPolicy.ALWAYS))
+                        .sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .cors(corsCustomizer -> corsCustomizer
                         .configurationSource(corsConfigurationSource()))
                 .csrf(csrfCustomizer -> csrfCustomizer
