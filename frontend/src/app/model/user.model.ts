@@ -1,7 +1,7 @@
 
 export class User{
 
-  public id: number;
+  public customerId: number;
   public name: string;
   public mobileNumber: string;
   public email : string;
@@ -12,9 +12,9 @@ export class User{
   public authStatus : string;
 
 
-  constructor(id?: number,name?: string, mobileNumber?: string, email?: string,  password?: string,role?: string,
+  constructor(customerId?: number,name?: string, mobileNumber?: string, email?: string,  password?: string,role?: string,
       statusCd?:string,statusMsg?:string, authStatus?:string){
-        this.id = id || 0;
+        this.customerId = customerId || 0;
         this.name = name || '';
         this.mobileNumber = mobileNumber || '';
         this.email = email || '';
