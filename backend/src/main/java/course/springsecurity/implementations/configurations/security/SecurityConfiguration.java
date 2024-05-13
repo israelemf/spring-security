@@ -1,5 +1,6 @@
 package course.springsecurity.implementations.configurations.security;
 
+import course.springsecurity.implementations.configurations.security.filters.AuthoritiesLoggingAfterFilter;
 import course.springsecurity.implementations.configurations.security.filters.CsrfCookieFilter;
 import course.springsecurity.implementations.configurations.security.filters.RequestValidationFilter;
 import org.springframework.context.annotation.Bean;
@@ -38,6 +39,7 @@ public class SecurityConfiguration {
                         .csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse()))
                 .addFilterAfter(new CsrfCookieFilter(), BasicAuthenticationFilter.class)
                 .addFilterBefore(new RequestValidationFilter(), BasicAuthenticationFilter.class)
+                .addFilterAfter(new AuthoritiesLoggingAfterFilter(), BasicAuthenticationFilter.class)
                 .authorizeHttpRequests(authorize -> authorize
                         .requestMatchers(EndpointsConstants.getEndpointsWithRequiringAuthentication()).authenticated()
                         .requestMatchers(EndpointsConstants.getEndpointsGetNotRequiringAuthentication()).permitAll()
