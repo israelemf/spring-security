@@ -1,4 +1,4 @@
-package course.springsecurity.implementations.configurations.security;
+package course.springsecurity.implementations.configurations.security.constants;
 
 public class EndpointsConstants {
     public static final String[] ENDPOINTS_GET_REQUIRING_AUTHENTICATION = {

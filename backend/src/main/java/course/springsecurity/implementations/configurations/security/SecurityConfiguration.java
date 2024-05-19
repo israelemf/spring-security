@@ -1,7 +1,10 @@
 package course.springsecurity.implementations.configurations.security;
 
+import course.springsecurity.implementations.configurations.security.constants.EndpointsConstants;
 import course.springsecurity.implementations.configurations.security.filters.AuthoritiesLoggingAfterFilter;
 import course.springsecurity.implementations.configurations.security.filters.CsrfCookieFilter;
+import course.springsecurity.implementations.configurations.security.filters.JwtTokenGenerateFilter;
+import course.springsecurity.implementations.configurations.security.filters.JwtTokenValidationFilter;
 import course.springsecurity.implementations.configurations.security.filters.RequestValidationFilter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -18,6 +21,7 @@ import org.springframework.security.web.csrf.CsrfTokenRequestAttributeHandler;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+
 import java.util.Collections;
 import java.util.List;
 
@@ -38,6 +42,8 @@ public class SecurityConfiguration {
                 .addFilterAfter(new CsrfCookieFilter(), BasicAuthenticationFilter.class)
                 .addFilterBefore(new RequestValidationFilter(), BasicAuthenticationFilter.class)
                 .addFilterAfter(new AuthoritiesLoggingAfterFilter(), BasicAuthenticationFilter.class)
+                .addFilterAfter(new JwtTokenGenerateFilter(), BasicAuthenticationFilter.class)
+                .addFilterBefore(new JwtTokenValidationFilter(), BasicAuthenticationFilter.class)
                 .authorizeHttpRequests(authorize -> authorize
                         .requestMatchers(EndpointsConstants.getEndpointsWithRequiringAuthentication()).authenticated()
                         .requestMatchers(EndpointsConstants.getEndpointsGetNotRequiringAuthentication()).permitAll()
@@ -53,20 +59,22 @@ public class SecurityConfiguration {
         return new BCryptPasswordEncoder();
     }
 
-    private CsrfTokenRequestAttributeHandler csrfTokenRequestAttributeHandler() {
+    private static CsrfTokenRequestAttributeHandler csrfTokenRequestAttributeHandler() {
         CsrfTokenRequestAttributeHandler requestHandler =  new CsrfTokenRequestAttributeHandler();
         requestHandler.setCsrfRequestAttributeName("_csrf");
 
         return requestHandler;
     }
 
-    private CorsConfigurationSource corsConfigurationSource() {
+    private static CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration corsConfiguration = new CorsConfiguration();
         corsConfiguration.setAllowedOrigins(List.of("http://localhost:4200"));
         corsConfiguration.setAllowedMethods(Collections.singletonList("*"));
         corsConfiguration.setAllowCredentials(true);
         corsConfiguration.setAllowedHeaders(Collections.singletonList("*"));
         corsConfiguration.setMaxAge(3600L);
+        corsConfiguration.setExposedHeaders(List.of("Authorization"));
+
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", corsConfiguration);
 
